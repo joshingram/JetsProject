@@ -3,6 +3,7 @@ package com.skilldistillery.jets.app;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import com.skilldistillery.jets.entities.AirField;
@@ -19,15 +20,16 @@ public class JetsApplication {
 	}
 
 	public void run() {
-		readFile();
+		//readFile();
 		printMenu();
 
 	}
 
-	AirField jetList = new AirField();
+	AirField jetList = readFile();
 
-	public void readFile() {
+	public AirField readFile() {
 		// Read a .txt file
+		AirField jetListRunner = new AirField();
 		BufferedReader bufIn = null;
 		try {
 			bufIn = new BufferedReader(new FileReader("jets.txt"));
@@ -43,15 +45,15 @@ public class JetsApplication {
 				// Instantiate new jets
 				if (jType.equals("Cargo")) {
 					Jet newCargo = new CargoJet(jModel, jSpeed, jRange, jPrice);
-					jetList.addJet(newCargo);
+					jetListRunner.addJet(newCargo);
 				}
 				if (jType.equals("Fighter")) {
 					Jet newFighter = new FighterJet(jModel, jSpeed, jRange, jPrice);
-					jetList.addJet(newFighter);
+					jetListRunner.addJet(newFighter);
 				}
 				if (jType.equals("Passenger")) {
 					Jet newPassenger = new PassengerJet(jModel, jSpeed, jRange, jPrice);
-					jetList.addJet(newPassenger);
+					jetListRunner.addJet(newPassenger);
 				}
 			}
 		} catch (IOException e) {
@@ -65,9 +67,11 @@ public class JetsApplication {
 				}
 			}
 		}
+		return jetListRunner;
 	}
 
 	public void printMenu() {
+		
 		while (true) {
 			Scanner kb = new Scanner(System.in);
 
@@ -83,6 +87,7 @@ public class JetsApplication {
 			System.out.println("| 8. Remove a jet from the fleet |");
 			System.out.println("| 9. Quit                        |");
 			System.out.println("\\----========================----/");
+			try { 
 			int menuChoice = kb.nextInt();
 			if (menuChoice == 9) {
 				System.out.println("           |      |    ");
@@ -92,11 +97,15 @@ public class JetsApplication {
 				System.exit(0);
 			}
 			switchMethod(menuChoice);
+			}
+			catch (InputMismatchException e) {
+				System.out.println("That's not a valid entry, try again");
+			}
 		}
 	}
 
 	public void switchMethod(int menuChoice) {
-
+		
 		switch (menuChoice) {
 		// List fleet
 		case 1:
@@ -141,7 +150,6 @@ public class JetsApplication {
 		Scanner kb1 = new Scanner(System.in);
 		System.out.print("Would you like to add a Cargo, Fighter, or Passenger jet?: ");
 		String typeChoice = kb1.next();
-		// TODO invalid choice option here?
 		System.out.print("Enter the model name: ");
 		String modelChoice = kb1.next();
 		System.out.print("Enter the speed in knots: ");
@@ -162,6 +170,10 @@ public class JetsApplication {
 		if (typeChoice.equals("Passenger")) {
 			Jet newPassenger = new PassengerJet(modelChoice, speedChoice, rangeChoice, priceChoice);
 			jetList.addJet(newPassenger);
+		}
+		else {
+			System.out.println();
+			System.out.println("We couldn't find the blueprints for a \"" + typeChoice + "\" jet.  Try again.");
 		}
 	}
 }

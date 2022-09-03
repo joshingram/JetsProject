@@ -39,11 +39,16 @@ public class AirField {
 				highest = high;
 			}
 		}
+		int tieCounter = 0;
 		for (int i = 0; i < airField.size(); i++) {
 			if (airField.get(i).getSpeed() == highest) {
 				Jet j = airField.get(i);
 				System.out.println("The fastest jet is:" + j);
+				tieCounter++;
 			}
+		}
+		if (tieCounter >1) {
+			System.out.println("Looks like a tie on paper, gonna come down to pilot skill");
 		}
 	}
 
@@ -55,11 +60,16 @@ public class AirField {
 				longest = dist;
 			}
 		}
+		int tieCounter = 0;
 		for (int i = 0; i < airField.size(); i++) {
 			if (airField.get(i).getRange() == longest) {
 				Jet j = airField.get(i);
 				System.out.println("The jet with the longest range is:" + j);
+				tieCounter++;
 			}
+		}
+		if (tieCounter >1) {
+			System.out.println("Looks like a tie on paper, gonna come down to pilot skill");
 		}
 	}
 
