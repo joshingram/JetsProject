@@ -4,14 +4,13 @@ public class FighterJet extends Jet implements CombatReady{
 
 	public FighterJet(String model, double speed, int range, long price) {
 		super(model, speed, range, price);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void fly() {
-		//System.out.println("Igniting afterburners...sonic boom!");
 		double endurance = this.getRange()/this.getSpeed();
-		System.out.println(this.getModel() + " " + this.getSpeed() + " " + this.getRange() + " " + this.getPrice() + " endurance of " + endurance + " hours");
+		System.out.println(this.getModel() + ", " + this.getSpeed() + "kts, " + this.getRange()
+		+ "nm, $" + this.getPrice() +  ", with endurance of " + String.format("%.2f", endurance) + " hours");
 		
 	}
 

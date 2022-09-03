@@ -42,7 +42,7 @@ public class AirField {
 		for (int i = 0; i < airField.size(); i++) {
 			if (airField.get(i).getSpeed() == highest) {
 				Jet j = airField.get(i);
-				System.out.println("The fastest jet is: " + j);
+				System.out.println("The fastest jet is:" + j);
 			}
 		}
 	}
@@ -58,7 +58,7 @@ public class AirField {
 		for (int i = 0; i < airField.size(); i++) {
 			if (airField.get(i).getRange() == longest) {
 				Jet j = airField.get(i);
-				System.out.println("The jet with the longest range is: " + j);
+				System.out.println("The jet with the longest range is:" + j);
 			}
 		}
 	}

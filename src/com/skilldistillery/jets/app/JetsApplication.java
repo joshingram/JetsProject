@@ -21,27 +21,27 @@ public class JetsApplication {
 	public void run() {
 		readFile();
 		printMenu();
-		
+
 	}
-	
+
 	AirField jetList = new AirField();
-	
+
 	public void readFile() {
-		//Read a .txt file
+		// Read a .txt file
 		BufferedReader bufIn = null;
 		try {
 			bufIn = new BufferedReader(new FileReader("jets.txt"));
 			String line;
 			while ((line = bufIn.readLine()) != null) {
-				String [] fromFile = line.split(", ");
+				String[] fromFile = line.split(", ");
 				String jType = fromFile[0];
 				String jModel = fromFile[1];
 				Double jSpeed = Double.parseDouble(fromFile[2]);
 				Integer jRange = Integer.parseInt(fromFile[3]);
 				Long jPrice = Long.parseLong(fromFile[4]);
-				
-				//Instantiate new jets
-				if (jType.equals("Cargo")){
+
+				// Instantiate new jets
+				if (jType.equals("Cargo")) {
 					Jet newCargo = new CargoJet(jModel, jSpeed, jRange, jPrice);
 					jetList.addJet(newCargo);
 				}
@@ -69,41 +69,46 @@ public class JetsApplication {
 
 	public void printMenu() {
 		while (true) {
-		Scanner kb = new Scanner(System.in);
-		
-		System.out.println();
-		System.out.println("/----=====//// MENU \\\\\\\\=====----\\");
-		System.out.println("| 1. List fleet                  |");
-		System.out.println("| 2. Fly all jets                |");
-		System.out.println("| 3. View fastest jet            |");
-		System.out.println("| 4. View jet with longest range |");
-		System.out.println("| 5. Load all Cargo Jets         |");
-		System.out.println("| 6. Dogfight!                   |");
-		System.out.println("| 7. Add a jet to the fleet      |");
-		System.out.println("| 8. Remove a jet from the fleet |");
-		System.out.println("| 9. Quit                        |");
-		System.out.println("\\----========================----/");
-		int menuChoice = kb.nextInt();
-		if (menuChoice == 9) {
-			System.exit(0);
+			Scanner kb = new Scanner(System.in);
+
+			System.out.println();
+			System.out.println("/----=====//// MENU \\\\\\\\=====----\\");
+			System.out.println("| 1. List fleet                  |");
+			System.out.println("| 2. Fly all jets                |");
+			System.out.println("| 3. View fastest jet            |");
+			System.out.println("| 4. View jet with longest range |");
+			System.out.println("| 5. Load all Cargo Jets         |");
+			System.out.println("| 6. Dogfight!                   |");
+			System.out.println("| 7. Add a jet to the fleet      |");
+			System.out.println("| 8. Remove a jet from the fleet |");
+			System.out.println("| 9. Quit                        |");
+			System.out.println("\\----========================----/");
+			int menuChoice = kb.nextInt();
+			if (menuChoice == 9) {
+				System.out.println("           |      |    ");
+				System.out.println("        __ |__/\\__|___");
+				System.out.println("----===/// Goodbye! \\\\\\===----");
+				System.out.println("       oo     O      oo");
+				System.exit(0);
+			}
+			switchMethod(menuChoice);
 		}
-		switchMethod(menuChoice);
 	}
-	}
+
 	public void switchMethod(int menuChoice) {
-		
+
 		switch (menuChoice) {
-		//List fleet
+		// List fleet
 		case 1:
 			jetList.getAllJets();
 			break;
-			
-		//Fly all jets
+
+		// Fly all jets
 		case 2:
 			jetList.flyAllJets();
 			break;
-			
-		//view the fastest jet	
+
+		// view the fastest jet
 		case 3:
 			jetList.getFastest();
 			break;
@@ -123,15 +128,15 @@ public class JetsApplication {
 			jetList.removeAJet();
 			break;
 		case 9:
-			
+
 			break;
 		default:
 			System.out.println("Invalid choice, try again");
-			
+
 		}
-		
+
 	}
-	
+
 	public void addAJet() {
 		Scanner kb1 = new Scanner(System.in);
 		System.out.print("Would you like to add a Cargo, Fighter, or Passenger jet?: ");
@@ -139,14 +144,14 @@ public class JetsApplication {
 		// TODO invalid choice option here?
 		System.out.print("Enter the model name: ");
 		String modelChoice = kb1.next();
-		System.out.print("Enter the speed: ");
+		System.out.print("Enter the speed in knots: ");
 		Double speedChoice = kb1.nextDouble();
-		System.out.print("Enter the range: ");
+		System.out.print("Enter the range in nautical miles: ");
 		Integer rangeChoice = kb1.nextInt();
-		System.out.print("Enter the price: ");
+		System.out.print("Enter the price in USD: ");
 		Long priceChoice = kb1.nextLong();
-		
-		if (typeChoice.equals("Cargo")){
+
+		if (typeChoice.equals("Cargo")) {
 			Jet newCargo = new CargoJet(modelChoice, speedChoice, rangeChoice, priceChoice);
 			jetList.addJet(newCargo);
 		}
@@ -157,8 +162,6 @@ public class JetsApplication {
 		if (typeChoice.equals("Passenger")) {
 			Jet newPassenger = new PassengerJet(modelChoice, speedChoice, rangeChoice, priceChoice);
 			jetList.addJet(newPassenger);
-		}	
+		}
 	}
-	
-	
 }
