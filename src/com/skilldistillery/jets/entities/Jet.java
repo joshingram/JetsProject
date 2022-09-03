@@ -14,8 +14,10 @@ public abstract class Jet {
 		this.price = price;
 	}
 	
-	public abstract void fly();
-
+	public void fly() {
+	double endurance = range/speed;
+		System.out.println(model + " " + speed + " " + range + " " + price + " " + endurance);
+	}
 	public String getModel() {
 		return model;
 	}
@@ -50,7 +52,7 @@ public abstract class Jet {
 
 	@Override
 	public String toString() {
-		return "Jet [model=" + model + ", speed=" + speed + ", range=" + range + ", price=" + price + "]";
+		return " model = " + model + ", speed = " + speed + ", range = " + range + ", price = $" + price;
 	}
 
 //	well encapusalted
