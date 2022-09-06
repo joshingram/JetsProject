@@ -1,23 +1,25 @@
 package com.skilldistillery.jets.entities;
 
 public abstract class Jet {
-
+	
+	//encapsulated fields
 	private String model;
 	private double speed;
 	private int range;
 	private long price;
-
+	
+	//4 argument constructor
 	public Jet(String model, double speed, int range, long price) {
 		this.model = model;
 		this.speed = speed;
 		this.range = range;
 		this.price = price;
 	}
-	
+	//abstract method with no method body
 	public abstract void fly();
-//	double endurance = range/speed;
-//		System.out.println(model + " " + speed + " " + range + " " + price + " " + endurance);
 	
+	
+	//getters and setters
 	public String getModel() {
 		return model;
 	}
@@ -49,12 +51,9 @@ public abstract class Jet {
 	public void setPrice(long price) {
 		this.price = price;
 	}
-
+	//Overriding the default toString to provide better formatting and readability
 	@Override
 	public String toString() {
 		return " model: " + model + ", speed: " + speed + "kts, range: " + range + "nm, price: $" + price;
 	}
-
-//	well encapusalted
-//	abstract methods
 }

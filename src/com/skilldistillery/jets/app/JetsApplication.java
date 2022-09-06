@@ -15,20 +15,20 @@ import com.skilldistillery.jets.entities.PassengerJet;
 public class JetsApplication {
 
 	public static void main(String[] args) {
+		//instantiate a new instance of the class in order to invoke non static methods
 		JetsApplication ja = new JetsApplication();
 		ja.run();
 	}
 
 	public void run() {
-		//readFile();
 		printMenu();
-
 	}
-
+	//AirField named jetList will equal the return of method readFile();
 	AirField jetList = readFile();
 
+	//returns an AirField (which is an Array of Jets)
 	public AirField readFile() {
-		// Read a .txt file
+		// Read a .txt file, parse String into correct data Types - store as variables for use in constructor
 		AirField jetListRunner = new AirField();
 		BufferedReader bufIn = null;
 		try {
@@ -42,7 +42,7 @@ public class JetsApplication {
 				Integer jRange = Integer.parseInt(fromFile[3]);
 				Long jPrice = Long.parseLong(fromFile[4]);
 
-				// Instantiate new jets
+				// Instantiate new jets based on type of jet
 				if (jType.equals("Cargo")) {
 					Jet newCargo = new CargoJet(jModel, jSpeed, jRange, jPrice);
 					jetListRunner.addJet(newCargo);
@@ -69,7 +69,7 @@ public class JetsApplication {
 		}
 		return jetListRunner;
 	}
-
+	//prints the Menu, then calls the switch method
 	public void printMenu() {
 		
 		while (true) {
@@ -87,6 +87,7 @@ public class JetsApplication {
 			System.out.println("| 8. Remove a jet from the fleet |");
 			System.out.println("| 9. Quit                        |");
 			System.out.println("\\----========================----/");
+			//try catch loop here to account for non-int inputs
 			try { 
 			int menuChoice = kb.nextInt();
 			if (menuChoice == 9) {
@@ -105,19 +106,14 @@ public class JetsApplication {
 	}
 
 	public void switchMethod(int menuChoice) {
-		
+		//switch cases correspond to the menu choices above, all but #7 call methods contained in the AirField Class.
 		switch (menuChoice) {
-		// List fleet
 		case 1:
 			jetList.getAllJets();
 			break;
-
-		// Fly all jets
 		case 2:
 			jetList.flyAllJets();
 			break;
-
-		// view the fastest jet
 		case 3:
 			jetList.getFastest();
 			break;
@@ -136,16 +132,16 @@ public class JetsApplication {
 		case 8:
 			jetList.removeAJet();
 			break;
-		case 9:
-
-			break;
+//		case 9:   //This is probably not required because choice 9 exits within the menu, prior to the switch.
+//
+//			break;
 		default:
 			System.out.println("Invalid choice, try again");
 
 		}
 
 	}
-
+	//allows a user to build their own jet, starting with type
 	public void addAJet() {
 		Scanner kb1 = new Scanner(System.in);
 		System.out.print("Would you like to add a Cargo, Fighter, or Passenger jet?: ");
@@ -159,15 +155,15 @@ public class JetsApplication {
 		System.out.print("Enter the price in USD: ");
 		Long priceChoice = kb1.nextLong();
 
-		if (typeChoice.equals("Cargo")) {
+		if (typeChoice.equalsIgnoreCase("Cargo")) {
 			Jet newCargo = new CargoJet(modelChoice, speedChoice, rangeChoice, priceChoice);
 			jetList.addJet(newCargo);
 		}
-		if (typeChoice.equals("Fighter")) {
+		else if (typeChoice.equalsIgnoreCase("Fighter")) {
 			Jet newFighter = new FighterJet(modelChoice, speedChoice, rangeChoice, priceChoice);
 			jetList.addJet(newFighter);
 		}
-		if (typeChoice.equals("Passenger")) {
+		else if (typeChoice.equalsIgnoreCase("Passenger")) {
 			Jet newPassenger = new PassengerJet(modelChoice, speedChoice, rangeChoice, priceChoice);
 			jetList.addJet(newPassenger);
 		}
